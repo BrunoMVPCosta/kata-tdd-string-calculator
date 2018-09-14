@@ -5,5 +5,117 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 public class CalculatorTest {
-       
+       @Test
+       public void calculatorGivenEmptyStringReturnsZeroTest() throws Exception{
+         //arrange
+         Calculator calc = new Calculator();
+         String input = "";
+         //act
+         int result = calc.add(input);
+         //assert
+         assertSame(result, 0);
+       }
+
+       @Test
+       public void calculatorGivenStringContainingOneNumberReturnsSameNumberTest() throws Exception{
+         //arrange
+         Calculator calc = new Calculator();
+         String input = "4";
+         //act
+         int result = calc.add(input);
+         //assert
+         assertSame(result, 4);
+       }
+
+       @Test
+       public void calculatorGivenTwoNumbersReturnsSumOfThemTest() throws Exception{
+         //arrange
+         Calculator calc = new Calculator();
+         String input = "1,2";
+
+         //act
+         int result = calc.add(input);
+
+         //assert
+         assertSame(result, 3);
+       }
+
+       @Test
+       public void calculatorGivenThreeNumbersReturnsSumOfThemTest() throws Exception{
+         //arrange
+         Calculator calc = new Calculator();
+         String input = "1,2,3";
+
+         //act
+         int result = calc.add(input);
+
+         //assert
+         assertSame(result, 6);
+       }
+
+       @Test
+       public void calculatorGivenNewlineOrCommaSplitersReturnsSumOfThemTest() throws Exception{
+         //arrange
+         Calculator calc = new Calculator();
+         String input = "1\n2,3";
+
+         //act
+         int result = calc.add(input);
+
+         //assert
+         assertSame(result, 6);
+       }
+
+       @Test
+       public void calculatorGivenInvalidInputReturnsNegativeOneTest() throws Exception{
+         //arrange
+         Calculator calc = new Calculator();
+         String input = "8,\n";
+
+         //act
+         int result = calc.add(input);
+
+         //assert
+         assertSame(result, 8);
+       }
+
+       @Test
+       public void calculatorGivenDelimitersDefinitionBeforeNumbersReturnsSumOfThemTest() throws Exception{
+         //arrange
+         Calculator calc = new Calculator();
+         String input = "//;\n1;2";
+
+         //act
+         int result = calc.add(input);
+
+         //assert
+         assertSame(result, 3);
+       }
+
+       @Test (expected = Exception.class)
+       public void calculatorGivenNegativeNumberThrowsExcpetionTest() throws Exception{
+         Calculator calc = new Calculator();
+         String input = "1,-4,-1";
+         try {
+           int result = calc.add(input);
+         } catch(Exception e) {
+           String message = "";
+           assertEquals(e.getMessage(), "negatives not allowed: -4,-1");
+           throw e;
+         }
+        fail("Excpetion not thrown");
+       }
+
+       @Test
+       public void calculatorGivenGreaterThanThousandNumbersThrowsExcpetionTest() throws Exception{
+         //arrange
+         Calculator calc = new Calculator();
+         String input = "20,2000,4";
+
+         //act
+         int result = calc.add(input);
+
+         //assert
+         assertSame(result, 24);
+       }
 }
