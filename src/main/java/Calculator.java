@@ -6,12 +6,15 @@ import java.util.regex.*;
 import java.lang.Exception;
 
 public class Calculator {
+  private static final String DEFAULT_DELIMITERS_PATTERN = "\n|,";
+  private static final String CUSTOM_DELIMITERS_PATTERN = "//(.)\n(.*)";
+
   public int add(String numbers) throws Exception{
     String errorMessage = "negatives not allowed: ";
     int result = 0;
-    String delimiters = "\n|,";
+    String delimiters = DEFAULT_DELIMITERS_PATTERN;
     if (! numbers.equals("")) {
-      Pattern pattern = Pattern.compile("//(.)\n(.*)");
+      Pattern pattern = Pattern.compile(CUSTOM_DELIMITERS_PATTERN);
       Matcher matcher = pattern.matcher(numbers);
       if (matcher.find()) {
         delimiters = matcher.group(1);
