@@ -5,5 +5,66 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 public class CalculatorTest {
-       
+
+  @Test
+  public void test_add_given_none_return0() throws Exception {
+    Calculator calculator = new Calculator();
+    int result = calculator.add("");
+    assertSame(result, 0);
+  }
+
+  @Test
+  public void test_add_given_one_return_number() throws Exception {
+    Calculator calculator = new Calculator();
+    int result = calculator.add("1");
+    assertSame(result, 1);
+  }
+
+  @Test
+  public void test_add_given_two_return_add_result() throws Exception {
+    Calculator calculator = new Calculator();
+    int result = calculator.add("1,2");
+    assertSame(result, 3);
+  }
+
+  @Test
+  public void test_add_given_three_return_add_result_sum() throws Exception {
+    Calculator calculator = new Calculator();
+    int result = calculator.add("10,20,30");
+    assertSame(result, 60);
+  }
+
+  @Test
+  public void test_add_given_three_with_new_line_return_add_result_sum() throws Exception {
+    Calculator calculator = new Calculator();
+    int result = calculator.add("1\n2,3");
+    assertSame(result, 6);
+  }
+
+  @Test
+  public void test_add_given_three_with_delimiter_return_add_result_sum() throws Exception {
+    Calculator calculator = new Calculator();
+    int result = calculator.add("//;\n1;2");
+    assertSame(result, 3);
+  }
+
+  @Test
+  public void test_add_given_negative_numbers_return_add_result_sum() {
+    Calculator calculator = new Calculator();
+    try {
+      calculator.add("1,4,-1,-2");
+    }
+    catch(Exception re) {
+      String message = "negatives not allowed: -1 -2";
+      assertEquals(message, re.getMessage());
+    }
+  }
+
+  @Test
+  public void test_add_given_bigger_numbers_return_sum_without_bigger_numbers() throws Exception {
+    Calculator calculator = new Calculator();
+    int result = calculator.add("2,1001");
+    assertSame(result, 2);
+  }
+
 }
