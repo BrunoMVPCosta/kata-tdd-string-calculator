@@ -64,4 +64,24 @@ public class CalculatorTest {
         // Assert
         assertEquals(number, 6);
     }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testNegativeNumbersString() {
+        // Arrange
+        Calculator calculator = new Calculator();
+        // Act
+        int number = calculator.Add("//;\n1,-2\n3000");
+        // Assert
+    }
+
+    @Test
+    public void testBigNumbers() {
+        // Arrange
+        Calculator calculator = new Calculator();
+        // Act
+        int number = calculator.Add("//;\n1,2000\n3");
+        // Assert
+        assertEquals(number, 4);
+    }
+    
 }
